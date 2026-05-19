@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 Book Reading Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <!-- Header -->
+      <header class="text-center mb-12">
+        <h1 class="text-5xl font-bold text-indigo-900 mb-2">
+          📚 Book Reading Tracker
+        </h1>
+        <p class="text-gray-600 text-lg">
+          Track your reading journey and stay motivated
+        </p>
+      </header>
+
+      <!-- Statistics Section -->
+      <section
+        id="statistics"
+        class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12"
+      >
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500"
+        >
+          <h3 class="text-gray-600 text-sm font-semibold uppercase">
+            Total Books
+          </h3>
+          <p
+            id="stat-total-books"
+            class="text-4xl font-bold text-blue-600 mt-2"
+          >
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500"
+        >
+          <h3 class="text-gray-600 text-sm font-semibold uppercase">
+            Books Read
+          </h3>
+          <p
+            id="stat-books-read"
+            class="text-4xl font-bold text-green-600 mt-2"
+          >
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500"
+        >
+          <h3 class="text-gray-600 text-sm font-semibold uppercase">
+            Total Pages
+          </h3>
+          <p
+            id="stat-total-pages"
+            class="text-4xl font-bold text-purple-600 mt-2"
+          >
+            0
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-orange-500"
+        >
+          <h3 class="text-gray-600 text-sm font-semibold uppercase">
+            Overall Progress
+          </h3>
+          <p
+            id="stat-overall-percentage"
+            class="text-4xl font-bold text-orange-600 mt-2"
+          >
+            0%
+          </p>
+        </div>
+      </section>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Form Section -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-lg shadow-lg p-8 sticky top-8">
+            <h2 class="text-2xl font-bold text-indigo-900 mb-6">
+              📖 Add New Book
+            </h2>
+            <form id="bookForm" class="space-y-4">
+              <!-- Title -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Book Title *</label
+                >
+                <input
+                  type="text"
+                  id="title"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter book title"
+                />
+              </div>
+
+              <!-- Author -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Author *</label
+                >
+                <input
+                  type="text"
+                  id="author"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter author name"
+                />
+              </div>
+
+              <!-- Number of Pages -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Total Pages *</label
+                >
+                <input
+                  type="number"
+                  id="numberOfPages"
+                  required
+                  min="1"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter total pages"
+                />
+              </div>
+
+              <!-- Status -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Status *</label
+                >
+                <select
+                  id="status"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="">Select Status</option>
+                  <option value="Unread">Unread</option>
+                  <option value="Want to read">Want to read</option>
+                  <option value="Currently reading">Currently reading</option>
+                  <option value="Read">Read</option>
+                  <option value="Re-read">Re-read</option>
+                  <option value="DNF">DNF (Did Not Finish)</option>
+                  <option value="Returned">Returned</option>
+                </select>
+              </div>
+
+              <!-- Format -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Format *</label
+                >
+                <select
+                  id="format"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="">Select Format</option>
+                  <option value="Print">Print</option>
+                  <option value="PDF">PDF</option>
+                  <option value="Ebook">Ebook</option>
+                  <option value="AudioBook">AudioBook</option>
+                </select>
+              </div>
+
+              <!-- Price -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Price</label
+                >
+                <input
+                  type="number"
+                  id="price"
+                  step="0.01"
+                  min="0"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter price"
+                />
+              </div>
+
+              <!-- Pages Read -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Pages Read</label
+                >
+                <input
+                  type="number"
+                  id="pagesRead"
+                  min="0"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter pages read"
+                />
+              </div>
+
+              <!-- Suggested By -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"
+                  >Suggested By</label
+                >
+                <input
+                  type="text"
+                  id="suggestedBy"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Who suggested this book?"
+                />
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 mt-6"
+              >
+                ➕ Add Book
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Books List Section -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-indigo-600 text-white p-6">
+              <h2 class="text-2xl font-bold">📚 My Books</h2>
+              <p id="bookCount" class="text-indigo-100 mt-1">Loading...</p>
+            </div>
+
+            <div id="booksList" class="divide-y max-h-[600px] overflow-y-auto">
+              <div class="p-8 text-center text-gray-500">
+                <p class="text-lg">Loading books...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Book Item Template (hidden) -->
+    <template id="bookItemTemplate">
+      <div class="book-item p-6 hover:bg-gray-50 transition duration-150">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-indigo-900"></h3>
+            <p class="text-sm text-gray-600">
+              by <span class="font-semibold"></span>
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="btn-edit bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition"
+            >
+              ✏️ Edit
+            </button>
+            <button
+              class="btn-delete bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition"
+            >
+              🗑️ Delete
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+          <div>
+            <span class="text-gray-600">Format:</span>
+            <span class="font-semibold text-indigo-600 ml-1"></span>
+          </div>
+          <div>
+            <span class="text-gray-600">Status:</span>
+            <span class="font-semibold text-green-600 ml-1"></span>
+          </div>
+          <div>
+            <span class="text-gray-600">Price:</span>
+            <span class="font-semibold ml-1">$<span></span></span>
+          </div>
+          <div>
+            <span class="text-gray-600">Suggested by:</span>
+            <span class="font-semibold ml-1"></span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span class="text-sm font-semibold text-gray-700"
+              >Reading Progress</span
+            >
+            <span class="text-sm font-bold text-indigo-600"
+              ><span class="pagesReadText">0</span>/<span class="totalPagesText"
+                >0</span
+              >
+              pages (<span class="percentageText">0</span>%)</span
+            >
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div
+              class="progress-bar bg-indigo-600 h-2 rounded-full transition-all duration-300"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Finished Badge -->
+        <div class="text-right">
+          <span
+            class="finished-badge inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-green-500 hidden"
+          >
+            ✅ Finished
+          </span>
+          <span
+            class="not-finished-badge inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-yellow-500"
+          >
+            📖 In Progress
+          </span>
+        </div>
+      </div>
+    </template>
+
+    <!-- Edit Modal -->
+    <div
+      id="editModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
+        <h2 class="text-2xl font-bold text-indigo-900 mb-4">Edit Book</h2>
+        <form id="editForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Pages Read</label
+            >
+            <input
+              type="number"
+              id="editPagesRead"
+              min="0"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Status</label
+            >
+            <select
+              id="editStatus"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="Unread">Unread</option>
+              <option value="Want to read">Want to read</option>
+              <option value="Currently reading">Currently reading</option>
+              <option value="Read">Read</option>
+              <option value="Re-read">Re-read</option>
+              <option value="DNF">DNF (Did Not Finish)</option>
+              <option value="Returned">Returned</option>
+            </select>
+          </div>
+          <div class="flex gap-4">
+            <button
+              type="button"
+              id="cancelEditBtn"
+              class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg transition"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      let books = [];
+      let currentEditId = null;
+
+      // Format currency
+      const formatCurrency = (value) => {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(value);
+      };
+
+      // Load all books
+      async function loadBooks() {
+        try {
+          const response = await fetch("/api/books");
+          const result = await response.json();
+          if (result.success) {
+            books = result.data;
+            renderBooks();
+            loadStats();
+          }
+        } catch (error) {
+          console.error("Error loading books:", error);
+        }
+      }
+
+      // Render books list
+      function renderBooks() {
+        const booksList = document.getElementById("booksList");
+        const bookCount = document.getElementById("bookCount");
+
+        if (books.length === 0) {
+          booksList.innerHTML =
+            '<div class="p-8 text-center text-gray-500"><p class="text-lg">No books yet. Add one to get started!</p></div>';
+          bookCount.textContent = "No books added yet";
+          return;
+        }
+
+        bookCount.textContent = `${books.length} book${books.length !== 1 ? "s" : ""} in your collection`;
+
+        booksList.innerHTML = books
+          .map((book) => {
+            const percentage = (book.pagesRead / book.numberOfPages) * 100;
+            const isFinished = book.finished === 1;
+
+            return `
+              <div class="book-item p-6 hover:bg-gray-50 transition duration-150">
+                <div class="flex justify-between items-start mb-4">
+                  <div>
+                    <h3 class="text-lg font-bold text-indigo-900">${book.title}</h3>
+                    <p class="text-sm text-gray-600">by <span class="font-semibold">${book.author}</span></p>
+                  </div>
+                  <div class="flex gap-2">
+                    <button class="btn-edit bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm transition" data-id="${book._id}">
+                      ✏️ Edit
+                    </button>
+                    <button class="btn-delete bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition" data-id="${book._id}">
+                      🗑️ Delete
+                    </button>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
+                  <div>
+                    <span class="text-gray-600">Format:</span>
+                    <span class="font-semibold text-indigo-600 ml-1">${book.format}</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-600">Status:</span>
+                    <span class="font-semibold text-green-600 ml-1">${book.status}</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-600">Price:</span>
+                    <span class="font-semibold ml-1">$${parseFloat(book.price).toFixed(2)}</span>
+                  </div>
+                  <div>
+                    <span class="text-gray-600">Suggested by:</span>
+                    <span class="font-semibold ml-1">${book.suggestedBy}</span>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-semibold text-gray-700">Reading Progress</span>
+                    <span class="text-sm font-bold text-indigo-600"><span class="pagesReadText">${book.pagesRead}</span>/<span class="totalPagesText">${book.numberOfPages}</span> pages (<span class="percentageText">${Math.round(percentage * 100) / 100}</span>%)</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="progress-bar bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: ${percentage}%"></div>
+                  </div>
+                </div>
+
+                <div class="text-right">
+                  ${isFinished ? '<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-green-500">✅ Finished</span>' : '<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-yellow-500">📖 In Progress</span>'}
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+
+        // Add event listeners to edit and delete buttons
+        document.querySelectorAll(".btn-edit").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const book = books.find((b) => b._id === e.target.dataset.id);
+            if (book) {
+              openEditModal(
+                book._id,
+                book.pagesRead,
+                book.status,
+                book.numberOfPages,
+              );
+            }
+          });
+        });
+
+        document.querySelectorAll(".btn-delete").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            deleteBook(e.target.dataset.id);
+          });
+        });
+      }
+
+      // Load statistics
+      async function loadStats() {
+        try {
+          const response = await fetch("/api/books/stats");
+          const result = await response.json();
+          if (result.success) {
+            const stats = result.data;
+            document.getElementById("stat-total-books").textContent =
+              stats.totalBooks;
+            document.getElementById("stat-books-read").textContent =
+              stats.totalBooksRead;
+            document.getElementById("stat-total-pages").textContent =
+              stats.totalPages;
+            document.getElementById("stat-overall-percentage").textContent =
+              stats.overallPercentage.toFixed(2) + "%";
+          }
+        } catch (error) {
+          console.error("Error loading stats:", error);
+        }
+      }
+
+      // Handle form submission
+      document
+        .getElementById("bookForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = {
+            title: document.getElementById("title").value,
+            author: document.getElementById("author").value,
+            numberOfPages: parseInt(
+              document.getElementById("numberOfPages").value,
+            ),
+            status: document.getElementById("status").value,
+            price: parseFloat(document.getElementById("price").value) || 0,
+            pagesRead:
+              parseInt(document.getElementById("pagesRead").value) || 0,
+            format: document.getElementById("format").value,
+            suggestedBy:
+              document.getElementById("suggestedBy").value || "Unknown",
+          };
+
+          try {
+            const response = await fetch("/api/books", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert("✅ Book added successfully!");
+              document.getElementById("bookForm").reset();
+              loadBooks();
+            } else {
+              alert("❌ Error: " + result.error);
+            }
+          } catch (error) {
+            alert("❌ Failed to add book: " + error.message);
+          }
+        });
+
+      // Open edit modal
+      function openEditModal(bookId, currentPages, currentStatus, totalPages) {
+        currentEditId = bookId;
+        document.getElementById("editPagesRead").value = currentPages;
+        document.getElementById("editPagesRead").max = totalPages;
+        document.getElementById("editStatus").value = currentStatus;
+        document.getElementById("editModal").classList.remove("hidden");
+      }
+
+      // Close edit modal
+      document.getElementById("cancelEditBtn").addEventListener("click", () => {
+        document.getElementById("editModal").classList.add("hidden");
+        currentEditId = null;
+      });
+
+      // Handle edit form submission
+      document
+        .getElementById("editForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const updateData = {
+            pagesRead: parseInt(document.getElementById("editPagesRead").value),
+            status: document.getElementById("editStatus").value,
+          };
+
+          try {
+            const response = await fetch(`/api/books/${currentEditId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(updateData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert("✅ Book updated successfully!");
+              document.getElementById("editModal").classList.add("hidden");
+              loadBooks();
+            } else {
+              alert("❌ Error: " + result.error);
+            }
+          } catch (error) {
+            alert("❌ Failed to update book: " + error.message);
+          }
+        });
+
+      // Delete book
+      async function deleteBook(bookId) {
+        if (!confirm("Are you sure you want to delete this book?")) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/books/${bookId}`, {
+            method: "DELETE",
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("✅ Book deleted successfully!");
+            loadBooks();
+          } else {
+            alert("❌ Error: " + result.error);
+          }
+        } catch (error) {
+          alert("❌ Failed to delete book: " + error.message);
+        }
+      }
+
+      // Initial load
+      loadBooks();
+      loadStats();
+
+      // Refresh stats every 5 seconds
+      setInterval(loadStats, 5000);
+    </script>
+  </body>
+</html>
